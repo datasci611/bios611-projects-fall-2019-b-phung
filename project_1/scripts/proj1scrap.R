@@ -74,6 +74,8 @@ tenure %>%
   geom_point()
 
 
+mutate(decade = year - (year %% 10)) # Possibly ended up not using this
+
 # known aid received
 # tally missings of each column
 # investigate how frequency of "low time" visitors have changed
