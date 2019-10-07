@@ -15,7 +15,7 @@ UMD_df = read_tsv("~/Documents/611/bios611-projects-fall-2019-b-phung/project_1/
   mutate(formatted.date = as.Date(Date, "%m/%d/%Y")) %>%
   arrange(formatted.date, `Client File Number`) %>%
   mutate(year = as.numeric(format(formatted.date, "%Y"))) %>%
-  mutate(decade = year - (year %% 10))
+  mutate(decade = year - (year %% 10)) # Possibly ended up not using this
 ```
 
 ***
@@ -53,7 +53,7 @@ year.filtered.UMD %>%
 
 Besides the current year 2019, which is not yet complete, there has generally been an increase of visitors throughout the years. It is unclear if this indicates a growing homeless population, as another possible contributor to the increase is simply is that people are more aware of UMD's presence.
 
-Something to note: it seems to have been a considerable spike in visitors in 2009; did something happen that year in particular?
+Something to note: there seems to have been a considerable spike in visitors in 2009; did something happen that year in particular?
 
 ***
 
