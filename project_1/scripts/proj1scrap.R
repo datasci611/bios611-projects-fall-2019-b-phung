@@ -61,6 +61,18 @@ unique.clients.decade %>% ggplot(aes(visits)) +
   geom_histogram(binwidth = 1) +
   facet_wrap(~decade)
 
+year.filtered.UMD %>%
+  left_join(visits.by.client, "Client File Number") %>%
+  select(year, visits.bin) %>%
+  table() %>%
+  prop.table(1) %>%
+  knitr::kable(digits=2)
+
+
+tenure %>%
+  ggplot(aes(x = visit.count, y = food)) +
+  geom_point()
+
 
 # known aid received
 # tally missings of each column
