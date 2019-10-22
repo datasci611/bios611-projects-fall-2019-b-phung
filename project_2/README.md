@@ -6,7 +6,7 @@ It would probably be most interesting to check out clients that have logged many
 
 Possible future updates include:
 * Switching to a different layout, in which the graphs take up the full width of the screen.
-* Trying a different input widget. Although a dropdown menu might be very natural option to ensure that there will only be valid inputs, note that there are over 15344 unique clients.
+* Trying a different input widget. Although a dropdown menu might be very natural option to ensure that there will only be valid inputs, note that there are 15344 unique clients. Maybe have a way to find clients of interest.
 * If there is no input, display the aggregate visits.
 * Return an error message for invalid inputs.
 * Implementing help text into the app itself.
