@@ -9,7 +9,7 @@ library(tidyverse)
 # can pick a client and return a summary of their visits
 
 genPlot = function(ID){
-UMD = read_tsv("~/Documents/611/bios611-projects-fall-2019-b-phung/project_2/data/UMD_Services_Provided_20190719.tsv") %>%
+UMD = read_tsv("data/UMD_Services_Provided_20190719.tsv") %>%
   select(`Client File Number`, Date) %>%
   mutate(formatted.date = as.Date(Date, "%m/%d/%Y")) %>%
   arrange(formatted.date, `Client File Number`) %>%
@@ -26,12 +26,12 @@ UMD_counts = UMD %>%
   mutate(panel = "visit frequency") %>%
   mutate(unemployment_rate = "")
 
-emp = read_csv("~/Documents/611/bios611-projects-fall-2019-b-phung/project_2/data/employment.csv") %>%
+emp = read_csv("data/employment.csv") %>%
   gather(Jan:Dec, key = "Month", value = "unemployment_rate") %>%
   mutate(year.month = as.Date(paste(Year, Month, "01", sep = "-"), format = "%Y-%b-%d")) %>%
   arrange(year.month) %>%
   select(-Year, -Month) %>%
-  mutate(panel = "unemployment rate") %>%
+  mutate(panel = "Durham unemployment rate") %>%
   mutate(visits = "")
 
 panel = rbind(UMD_counts, emp)
@@ -47,12 +47,12 @@ panel %>%
 
 
 # 
-# # most frequent visitors
+# most frequent visitors
 # test = UMD %>%
 #   group_by(`Client File Number`) %>%
 #   summarize(entries = n()) %>%
 #   arrange(desc(entries))
-# head(test)
+# head(test,10)
 # 
 # 
 # UMD = UMD %>%
