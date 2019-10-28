@@ -3,72 +3,65 @@ library(tidyverse)
 # https://www.bls.gov/eag/eag.nc_durham_msa.htm
 # https://data.bls.gov/timeseries/LAUMT372050000000003?amp%253bdata_tool=XGtable&output_view=data&include_graphs=true
 
-# plot frequency of shelter visits over time
-# plot unemployment (rate) over time
 # dashboard can be used to control year and 
-# can pick a client and return a summary of their visits
 
-genPlot = function(ID){
+# wrangle UMD data set
 UMD = read_tsv("data/UMD_Services_Provided_20190719.tsv") %>%
   select(`Client File Number`, Date) %>%
   mutate(formatted.date = as.Date(Date, "%m/%d/%Y")) %>%
-  arrange(formatted.date, `Client File Number`) %>%
   mutate(year = as.numeric(format(formatted.date, "%Y"))) %>%
   filter(1996 <= year & formatted.date <= "2019-07-19") %>%
   mutate(year.month = cut(formatted.date, breaks = "month"))
 
-UMD = UMD %>% filter(`Client File Number` == ID)
-
-UMD_counts = UMD %>%
-  group_by(year.month) %>%
-  summarize(visits = n()) %>%
-  mutate(year.month = as.Date(year.month)) %>%
-  mutate(panel = "visit frequency") %>%
-  mutate(unemployment_rate = "")
-
-emp = read_csv("data/employment.csv") %>%
+#wrangle unemployment data set
+unemp = read_csv("data/employment.csv") %>%
   gather(Jan:Dec, key = "Month", value = "unemployment_rate") %>%
   mutate(year.month = as.Date(paste(Year, Month, "01", sep = "-"), format = "%Y-%b-%d")) %>%
   arrange(year.month) %>%
   select(-Year, -Month) %>%
   mutate(panel = "Durham unemployment rate") %>%
-  mutate(visits = "")
+  mutate(visits = NA)
 
-panel = rbind(UMD_counts, emp)
+# derive visit summary grouped by `Client File Number`
+summary = read_tsv("data/UMD_Services_Provided_20190719.tsv") %>%
+  mutate(formatted.date = as.Date(Date, "%m/%d/%Y")) %>%
+  mutate(year = as.numeric(format(formatted.date, "%Y"))) %>%
+  filter(1996 <= year & formatted.date <= "2019-07-19") %>%
+  group_by(`Client File Number`) %>%
+  summarize(`Visit Count` = n(),
+            `First Visit` = min(formatted.date),
+            `Last Visit` = max(formatted.date),
+            `Bus Tickets` = sum(`Bus Tickets (Number of)`, na.rm = T),
+            `Food-Persons` = sum(`Food Provided for`, na.rm = T),
+            `Food Pounds` = sum(`Food Pounds`, na.rm = T),
+            `Clothing Items` = sum(`Clothing Items`, na.rm = T),
+            `Diapers` = sum(`Diapers`, na.rm = T),
+            `School Kits` = sum(`School Kits`, na.rm = T),
+            `Hygiene Kits` = sum(`Hygiene Kits`, na.rm = T),
+            `Financial Support` = sum(`Financial Support`, na.rm = T))
+
+#derive a vector of client IDs
+client.list = pull(summary, `Client File Number`)
+
+plot.unemp.visits = function(ID){
+UMD2 = UMD %>%
+  filter(`Client File Number` == ID) %>%
+  group_by(year.month) %>%
+  summarize(visits = n()) %>%
+  mutate(year.month = as.Date(year.month)) %>%
+  mutate(panel = "visit frequency") %>%
+  mutate(unemployment_rate = NA)
+
+panel = rbind(UMD2, unemp)
 
 panel %>%
   ggplot(mapping = aes(x = year.month, y = visits)) + 
   facet_grid(panel~., scale="free") + 
-  geom_bar(data = UMD_counts, stat = "identity") + 
-  geom_line(data = emp, mapping=aes(y = unemployment_rate)) +
+  geom_bar(data = UMD2, stat = "identity") + 
+  geom_line(data = unemp, mapping=aes(y = unemployment_rate)) +
+  scale_x_date(date_breaks = "1 years", date_minor_breaks = "3 months", date_labels = "%Y") +
+  # next line of code sourced from https://stackoverflow.com/a/39877048 to force integer values on the y-axis 
+  scale_y_continuous(breaks = function(x) unique(floor(pretty(seq(0, (max(x) + 1) * 1.1))))) +
   xlab("year") +
   ylab("")
 }
-
-
-# 
-# most frequent visitors
-# test = UMD %>%
-#   group_by(`Client File Number`) %>%
-#   summarize(entries = n()) %>%
-#   arrange(desc(entries))
-# head(test,10)
-# 
-# 
-# UMD = UMD %>%
-#   filter(`Client File Number` == "3502")
-# c3502_counts = c3502 %>%
-#   group_by(year.month) %>%
-#   summarize(visits = n()) %>%
-#   mutate(year.month = as.Date(year.month)) %>%
-#   mutate(panel = "visit frequency") %>%
-#   mutate(unemployment_rate = "")
-# 
-# panel = rbind(c3502, emp)
-# panel %>%
-#   ggplot(mapping = aes(x = year.month, y = visits)) + 
-#   facet_grid(panel~., scale="free") + 
-#   geom_bar(data = UMD_counts, stat = "identity") + 
-#   geom_line(data = emp, mapping=aes(y = unemployment_rate)) +
-#   xlab("year") +
-  ylab("")
