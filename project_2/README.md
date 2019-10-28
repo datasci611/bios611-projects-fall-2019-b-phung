@@ -1,13 +1,10 @@
-App found [here](https://bphung.shinyapps.io/project_2/).
+# [Visualizing visits of a given client and against the unemployment rate](https://bphung.shinyapps.io/project_2/)
 
-This app allows the user to input a `Client File Number` and returns a graph of their visits, along with a graph of the Durham unemployment rate.
+As per their website, [Urban Ministries of Durham](http://www.umdurham.org/ "Urban Ministries of Durham's Homepage") is non-profit organization that provides food and shelter to those in need.
 
-It would probably be most interesting to check out clients that have logged many visits, so here are the top five: 3502, 805, 738, 1176, and 904.
+The UMD_Services_Provided data set tracks when clients visit and the sort of assistance that was provided. The goal of this project is to build a tool that allows the user to quickly visualize the visit history of a given client. Additionally, since it seems logical to infer that visits to the shelter may trend with the (local) unemployment rate, so that is given as well in another panel with the same horizontal axis of time. The data for the unemployment rate was sourced from [here](https://data.bls.gov/timeseries/LAUMT372050000000003?amp%253bdata_tool=XGtable&output_view=data&include_graphs=true) with the year range selected from 1996 to 2019, and manually exported to .csv format.
 
-Possible future updates include:
-* Switching to a different layout, in which the graphs take up the full width of the screen.
-* Trying a different input widget. Although a dropdown menu might be very natural option to ensure that there will only be valid inputs, note that there are 15344 unique clients. Maybe have a way to find clients of interest.
-* If there is no input, display the aggregate visits.
-* Return an error message for invalid inputs.
-* Implementing help text into the app itself.
-* Add another output giving a summary of the client, such as their total number of visits, first and last visits, average time between visits, total services provided to.
+Note that since it may not be obvious which client ID to enter, the user is given a table giving a list of all clients and summarizing some statistics about their visits, and an aggregate of the services they have been provided (as far as known). Sorting and searching this table may be used to answer questions such as "Which client has recieved the most bus tickets?" and "Which clients visited exactly 5 times?".
+
+Considerations for future updates include:
+* Is there a better way to browse through the list of clients? The original data set had upwards of 70,000 entries, and collating them by client has still left use with over 15,000 unique clients.
