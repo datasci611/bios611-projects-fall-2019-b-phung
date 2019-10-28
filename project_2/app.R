@@ -33,7 +33,7 @@ server <- function(input, output) {
                             You may also search for clients who have recieved exactly 8 bus tickets
                             by searching '8' in the bottom of the column.")
   output$text3 <- renderText("`Client File Number` = 0 will return aggregated visits of all clients.
-                            Other invalid numbers will return and error.")
+                            Other invalid numbers will return an error.")
   output$text4 <- renderText("For clients whose visits range across 2 years or less, the x-axis has breaks at every month.
                             For clients whose visits range across more than that, breaks are given at every year, with sub-breaks at every month.")
   output$text5 <- renderText("For the best user-experience, please use fullscreen.")
