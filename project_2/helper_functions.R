@@ -1,8 +1,5 @@
 library(tidyverse)
 
-# https://www.bls.gov/eag/eag.nc_durham_msa.htm
-# https://data.bls.gov/timeseries/LAUMT372050000000003?amp%253bdata_tool=XGtable&output_view=data&include_graphs=true
-
 # wrangle UMD data set
 UMD = read_tsv("data/UMD_Services_Provided_20190719.tsv") %>%
   select(`Client File Number`, Date) %>%
@@ -58,7 +55,7 @@ plot.unemp.visits = function(ID){
       mutate(panel = "Visit count") %>%
       mutate(unemployment_rate = NA)
   } else {
-    stop("Invalid value for `Client File Number`. No output created.")
+    stop(as.character("Invalid value for `Client File Number`. No output created."))
   }
 
 # truncate the x-axis to a month before and after the first and last dates respectively
