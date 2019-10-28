@@ -6,7 +6,7 @@ ui <- fluidPage(
   fluidRow(
     column(3,
            numericInput("ID", "Client File Number:", value = 0),
-           textOutput("text1"), hr(),
+           textOutput("text1"),
            textOutput("text2"), hr(),
            textOutput("text3"), hr(),
            textOutput("text4"), hr(),
@@ -31,10 +31,10 @@ server <- function(input, output) {
   output$text2 <- renderText("For example, clicking `Bus Tickets` will list the bottom 5 recipients of
                              bus tickets and clicking again will list the top 5.")
   output$text3 <- renderText("`Client File Number` = 0 will return aggregated visits of all Clients.
-                             Other invalid numbers will return an error.")
-  output$text4 <- renderText("The x-axis of the graph below has major breaks at the beginning of each year
-                             and minor breaks at the beginning of each quarter, i.e., bars in the
-                             first segment of each year represent the months Jan ~ Mar.")
+                             Other invalid numbers will return the error
+                             `$ operator is invalid for atomic vectors`.")
+  output$text4 <- renderText("For Clients whose visits range across 2 years or less, the x-axis has breaks at every month.
+                             For clients whose visits range across more than that, breaks are given at every year, with sub-breaks at every month.")
   output$text5 <- renderText("For the best user-experience, please use fullscreen.")
 }
 
