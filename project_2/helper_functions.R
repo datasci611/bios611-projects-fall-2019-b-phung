@@ -50,13 +50,15 @@ plot.unemp.visits = function(ID){
       mutate(year.month = as.Date(year.month)) %>%
       mutate(panel = "visit frequency") %>%
       mutate(unemployment_rate = NA)
-  } else {
+  } else if (ID == 0){
     UMD2 = UMD %>%
       group_by(year.month) %>%
       summarize(visits = n()) %>%
       mutate(year.month = as.Date(year.month)) %>%
       mutate(panel = "visit frequency") %>%
       mutate(unemployment_rate = NA)
+  } else {
+    UMD2 = UMD
   }
   
 panel = rbind(UMD2, unemp)
@@ -80,6 +82,5 @@ panel %>%
   # next line of code sourced from https://stackoverflow.com/a/39877048 to force integer values on the y-axis 
   scale_y_continuous(breaks = function(x) unique(floor(pretty(seq(0, (max(x) + 1) * 1.1))))) +
   xlab("year") +
-  ylab("") +
-  theme_minimal()
+  ylab("")
 }
