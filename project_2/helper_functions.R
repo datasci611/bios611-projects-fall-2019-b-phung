@@ -58,7 +58,7 @@ plot.unemp.visits = function(ID){
       mutate(panel = "visit frequency") %>%
       mutate(unemployment_rate = NA)
   } else {
-    UMD2 = UMD
+    stop("Invalid value for `Client File Number`. No output created.")
   }
   
 panel = rbind(UMD2, unemp)
