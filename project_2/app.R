@@ -31,7 +31,7 @@ server <- function(input, output) {
   output$text2 <- renderText("For example, clicking `Bus Tickets` will list the bottom 10 recipients of
                             bus tickets and clicking again will list the top 10.
                             You may also search for clients who have recieved exactly 8 bus tickets
-                            by searching "8" in the bottom of the column.")
+                            by searching '8' in the bottom of the column.")
   output$text3 <- renderText("`Client File Number` = 0 will return aggregated visits of all clients.
                             Other invalid numbers will return and error.")
   output$text4 <- renderText("For clients whose visits range across 2 years or less, the x-axis has breaks at every month.
