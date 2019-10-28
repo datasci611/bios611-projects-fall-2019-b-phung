@@ -3,7 +3,7 @@ library(tidyverse)
 # https://www.bls.gov/eag/eag.nc_durham_msa.htm
 # https://data.bls.gov/timeseries/LAUMT372050000000003?amp%253bdata_tool=XGtable&output_view=data&include_graphs=true
 
-# dashboard can be used to control year and 
+# dashboard can be used to control year
 
 # wrangle UMD data set
 UMD = read_tsv("data/UMD_Services_Provided_20190719.tsv") %>%
@@ -19,7 +19,7 @@ unemp = read_csv("data/employment.csv") %>%
   mutate(year.month = as.Date(paste(Year, Month, "01", sep = "-"), format = "%Y-%b-%d")) %>%
   arrange(year.month) %>%
   select(-Year, -Month) %>%
-  mutate(panel = "Durham unemployment rate") %>%
+  mutate(panel = "Durham unemployment rate (%)") %>%
   mutate(visits = NA)
 
 # derive visit summary grouped by `Client File Number`
@@ -44,24 +44,48 @@ summary = read_tsv("data/UMD_Services_Provided_20190719.tsv") %>%
 client.list = pull(summary, `Client File Number`)
 
 plot.unemp.visits = function(ID){
-UMD2 = UMD %>%
-  filter(`Client File Number` == ID) %>%
-  group_by(year.month) %>%
-  summarize(visits = n()) %>%
-  mutate(year.month = as.Date(year.month)) %>%
-  mutate(panel = "visit frequency") %>%
-  mutate(unemployment_rate = NA)
-
+  if (ID %in% client.list) {
+    UMD2 = UMD %>%
+      filter(`Client File Number` == ID) %>%
+      group_by(year.month) %>%
+      summarize(visits = n()) %>%
+      mutate(year.month = as.Date(year.month)) %>%
+      mutate(panel = "visit frequency") %>%
+      mutate(unemployment_rate = NA)
+  } else {
+    UMD2 = UMD %>%
+      group_by(year.month) %>%
+      summarize(visits = n()) %>%
+      mutate(year.month = as.Date(year.month)) %>%
+      mutate(panel = "visit frequency") %>%
+      mutate(unemployment_rate = NA)
+  }
+  
 panel = rbind(UMD2, unemp)
-
+# if (max(UMD2$year.month) - min(UMD2$year.month) <= 366) {
+#   date.lim = c(min(UMD2$year.month) - 183, max(UMD2$year.month) - 183)
+# } else {
+#   # cut() takes the bounds of the date and expands them by a month so the values at the bounds will be included
+#   date.lim = c(as.Date(cut(min(UMD2$year.month) - 1, "month")), as.Date(cut(max(UMD2$year.month) + 31, "month")))
+# }
+# # date.lim = NULL
+date.lim = c(as.Date(cut(min(UMD2$year.month) - 1, "month")), as.Date(cut(max(UMD2$year.month) + 31, "month")))
+if (max(UMD2$year.month) - min(UMD2$year.month) <= 730) {
+  minbr = waiver()
+  majbr = "1 month"
+} else {
+  minbr = "3 months"
+  majbr = "1 year"
+}
 panel %>%
   ggplot(mapping = aes(x = year.month, y = visits)) + 
   facet_grid(panel~., scale="free") + 
   geom_bar(data = UMD2, stat = "identity") + 
   geom_line(data = unemp, mapping=aes(y = unemployment_rate)) +
-  scale_x_date(date_breaks = "1 years", date_minor_breaks = "3 months", date_labels = "%Y") +
+  scale_x_date(date_breaks = majbr, date_minor_break = minbr, date_labels = "%Y-%m", limits = date.lim) +
   # next line of code sourced from https://stackoverflow.com/a/39877048 to force integer values on the y-axis 
   scale_y_continuous(breaks = function(x) unique(floor(pretty(seq(0, (max(x) + 1) * 1.1))))) +
   xlab("year") +
-  ylab("")
+  ylab("") +
+  theme_minimal()
 }
