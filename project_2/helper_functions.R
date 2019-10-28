@@ -38,9 +38,9 @@ summary = read_tsv("data/UMD_Services_Provided_20190719.tsv") %>%
             `Hygiene Kits` = sum(`Hygiene Kits`, na.rm = T),
             `Financial Support` = sum(`Financial Support`, na.rm = T))
 
-#derive a vector of client IDs
+# derive a vector of client IDs
 client.list = pull(summary, `Client File Number`)
-
+# conditional to proceed with a valid ID, display aggregate for ID == 0, give an error otherwise
 plot.unemp.visits = function(ID){
   if (ID %in% client.list) {
     UMD2 = UMD %>%
@@ -55,16 +55,20 @@ plot.unemp.visits = function(ID){
       group_by(year.month) %>%
       summarize(visits = n()) %>%
       mutate(year.month = as.Date(year.month)) %>%
-      mutate(panel = "visit frequency") %>%
+      mutate(panel = "Visit count") %>%
       mutate(unemployment_rate = NA)
   } else {
     stop("Invalid value for `Client File Number`. No output created.")
   }
-  
-panel = rbind(UMD2, unemp)
-date.lim = c(as.Date(cut(min(UMD2$year.month) - 1, "month")), as.Date(cut(max(UMD2$year.month) + 31, "month")))
-# date.lim = as.Date(c(floor_date(min(UMD2$year.month), "year"), ceiling_date(min(UMD2$year.month), "year")))
 
+# truncate the x-axis to a month before and after the first and last dates respectively
+date.lim = c(as.Date(cut(min(UMD2$year.month) - 1, "month")), as.Date(cut(max(UMD2$year.month) + 31, "month")))
+# I had wanted to have minor breaks of 3 months but I couldn't get them to properly align
+# The next line is something I tried with a lubridate function but I couldn't get them to work either.
+# date.lim = as.Date(c(lubricate::floor_date(min(UMD2$year.month), "year"), lubridate::ceiling_date(min(UMD2$year.month), "year")))
+
+# show month-by-month labels if time frame is small enough
+# omit if too large
 if (max(UMD2$year.month) - min(UMD2$year.month) <= 730) {
   minbr = waiver()
   majbr = "1 month"
@@ -73,6 +77,10 @@ if (max(UMD2$year.month) - min(UMD2$year.month) <= 730) {
   majbr = "1 year"
 }
 
+# https://stackoverflow.com/q/3099219 and
+# https://github.com/tidyverse/ggplot2/wiki/Align-two-plots-on-a-page
+# a workaround to avoid having more than one y-axes 
+panel = rbind(UMD2, unemp)
 panel %>%
   ggplot(mapping = aes(x = year.month, y = visits)) + 
   facet_grid(panel~., scale="free") + 
