@@ -8,7 +8,7 @@ UMD = read_tsv("data/UMD_Services_Provided_20190719.tsv") %>%
   filter(1996 <= year & formatted.date <= "2019-07-19") %>%
   mutate(year.month = cut(formatted.date, breaks = "month"))
 
-#wrangle unemployment data set
+# wrangle unemployment data set
 unemp = read_csv("data/employment.csv") %>%
   gather(Jan:Dec, key = "Month", value = "unemployment_rate") %>%
   mutate(year.month = as.Date(paste(Year, Month, "01", sep = "-"), format = "%Y-%b-%d")) %>%
