@@ -9,6 +9,6 @@ The goal of this project is to build a tool that allows the user to quickly visu
 Note that since it may not be obvious which client ID to enter, the user is given a table listing all clients and summarizing some statistics about their visits, and an aggregate of the services they have been provided (as far as known). Sorting and searching this table may be used to answer questions such as "Which client has received the most bus tickets?" and "Which clients visited exactly 5 times?".
 
 Considerations for future updates include:
-* Is there a better way to browse through the list of clients? The original data set had upwards of 70,000 entries, and collating them by client has still left use with over 15,000 unique clients.
+* Is there a better way to browse through the list of clients? The original data set had upwards of 70,000 entries, and collating them by client has still left us with over 15,000 unique clients.
 * Incorporate other macro trends in the vein of unemployment rate such as consumer price index, or housing prices in Durham.
 * Look into: invalid values of `Client File Number` renders a generic error message when the dashboard is accessed on shinyapps instead of the intended message which specifies that the value is invalid. The intended messages shows when running locally.
