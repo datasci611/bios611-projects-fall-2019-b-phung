@@ -27,10 +27,10 @@ server <- function(input, output) {
                                           options = list(pageLength = 10, searching = T, lengthChange = F))
   output$text1 <- renderText("If you know which client's visits you would like to see, input their number.
                             Otherwise, you may procure a number by sorting or searching the summary table
-                            by yourstatistic of interest.")
+                            by your statistic of interest.")
   output$text2 <- renderText("For example, clicking `Bus Tickets` will list the bottom 10 recipients of
                             bus tickets and clicking again will list the top 10.
-                            You may also search for clients who have recieved exactly 8 bus tickets
+                            You may also search for clients who have received exactly 8 bus tickets
                             by searching '8' in the bottom of the column.")
   output$text3 <- renderText("`Client File Number` = 0 will return aggregated visits of all clients.
                             Other invalid numbers will return an error.")
