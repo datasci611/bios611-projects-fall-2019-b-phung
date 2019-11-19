@@ -12,3 +12,6 @@ The first part of this project aims to explore the following questions:
 * If there is any, what is the relationship between housing price index and visitor frequency?
 
 The second part aims to plot this data out on a map of the Raleigh-Durham area.
+
+  
+To those assigned to give me feedback: for the purposes of this draft, I've only used R to do anything. (Python, Make, and Docker will be incorporated later). Hopefully I've commented sufficiently to guide you clearly through what I do. At least for the first part, you shouldn't have to worry about file and file paths because I've taken care to load in datasets from URLs directly.
