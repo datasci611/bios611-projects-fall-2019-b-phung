@@ -1,0 +1,18 @@
+Some small typos in file names and titles:
+Averge -> Average
+lenth -> length
+
+You may want to group your figures together by what they explore. That is,
+
+lenth_of_stay.png
+number of visits in each year.png
+rent_price.png
+unemployment_rate.png
+
+are all plotted over time.
+
+Whereas 
+average stay time.png
+number of visit.png
+
+are histograms of counts.
