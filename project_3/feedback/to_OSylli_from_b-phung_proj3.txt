@@ -1,0 +1,18 @@
+I would recommend giving some interpretation to the figures you've plotted.
+From what I can tell, it's something like as follows:
+
+Q1_Occurence of Entry in Different Months.png:
+Visits peaked around late 2015 to mid 2016, and has been trending downwards to the present.
+
+Q1_Trend of Entry to UMD from Jul 2014 to Oct 2019.png:
+Most visits occured in March, May, and August, though not necessarily for any discernable reason.
+
+Q3_The relationship between duration of stay and clients' age.png
+Older clients tend to stay longer.
+
+Q3_The relationship between duration of stay and clients' housing status.png,
+Q3_The relationship between the total times of Entry of the kind of Clients and clients' live condition.png:
+For these graphs, I think you should clarify that it refers to the clients' /prior/ living condition. Also, you may want to note that clients that come more than once will be counted more than once.
+
+Q2:
+May want to note how Asians don't account for many of the entries, and how that may skew their high average length of stay.
