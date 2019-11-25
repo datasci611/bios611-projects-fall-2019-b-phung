@@ -1,0 +1,3 @@
+See the jupyter notebook I had previously sent you.
+
+Also, keep in mind that when you do the final join, you'll need to specify on which columns. Good luck!
