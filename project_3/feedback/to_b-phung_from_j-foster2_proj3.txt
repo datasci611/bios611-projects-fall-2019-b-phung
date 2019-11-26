@@ -1,0 +1,15 @@
+No Makefile was present, however there is mention of a plan to create one for the final project.
+
+Your code is organized well, and you make great use of tidyverse functions. No python code was provided for the draft. It might be helpful to use Pandas for the majority of your data wrangling and focus on using ggplot for your visualization. 
+
+No Docker file provided as of the draft, however your R script comments did a good job explaining how you plan on organizing your Docker container. 
+
+Your violin and line plots do a good job of visualizing your data. However, I found your second violin plot that breaks down counts by year difficult to read. I would stick the format used in the first figure. 
+
+Overall, I think your code is well commented. Given your focus on housing price index, it would be helpful to add a breakdown of what the index measures in the README and why you chose to focus on this metric. The data chart contained in your README does a good job explaining your data. Relevant background should be added to the README.
+
+While the questions being investigated are interesting, a sentence or two about why this investigation would likely be helpful to the client. 
+
+Once you have generated your final figures adding a few sentences that interpret the data will likely be helpful to any UMD employee who is trying to understand the analysis. 
+
+Overall, great job outlining your questions. Make sure to add a summary paragraph that drives home the point of the analysis.

@@ -1,0 +1,56 @@
+Hi b-phung,
+
+I think this is a great project which can provide the viewers with a lot of useful information and can offer a lot of help for the staffs of UMD I think.
+
+A small piece of suggestion is that, when you are trying to get the "year" variable from the "Entry Date", you can use the function "as.Date()" and a function from package "data.table" called "year".
+
+I think it looks more formal and can help make your code even clearer (actually it is already very clear and readable, haha).
+
+You can also use the function "month()" to pick out the "month" from the date object if you need to find whether there exists any significant difference between the record in each month. That's quite convenient.
+
+Also, 
+
+Below are some of other comments for your inference:
+
+1. Is the project organized modularly, with Make as the workflow manager?
+  Generally the project structure is clear to the viewers, maybe a ./results/ folder can be added to your repository so that it can become more complete.
+  "Make" has not been included into the project folder, but as you've mentioned in your README file, you're going to finish this part later. So I don't think its absence is a big problem. Looking forward to it!
+
+2. Does the project use both Python (Pandas specifically) and R (Tidyverse specifically) scripts?
+  Package "tidyverse" is applied in you "draft.R" file and I must say that your code is so organized and readable.
+  "Python" has not been used in the project but again, you can complete it later just as you've mentioned.
+
+3. Is Docker used to define execution environments appropriately?
+  Not yet. Also looking forward to it!
+
+4. Are the plots appropriate for the data types, the hypotheses being tested, and the points being communicated?
+  As is shown in your draft.R file, you've tried different kinds of figures to communiate your results like violin, line and cartogram.
+  I think it is appropriate to use them to help conveying you points and results, and they are useful and attractive to the viewers.
+
+5. How can the project be organized or documented more clearly?
+  For this question, actually I think the current project folder and code has been quite organized and tidy. Codes are also commented to explain what you're trying to do in each step clearly. I think it is already done very well.
+
+6. Is the purpose of the project communicated clearly?
+  Yes. The topics of the project is clearly shown in the README file, including trying to find the ZIP codes that most clients come from,
+  figuring out whether there is some connections between housing price index and visitor frequency, 
+  and trying to plot this data out on a map of the Raleigh-Durham area.
+
+7. Does the purpose of the project make sense from the client’s point of view? How could the project better serve the client?
+  It seems that the audience of your project has not been indicated in your README file, maybe you can add this information so that viewers can think about whether the problems you're going to solve in this project is useful for the audience.
+  Based on the questions you've raised, I guess the audience are the staffs of UMD?
+  If it is the case, I think the results of your project would be quite useful for them to make better preparations and offer adequate assistance to those in need.
+
+8. Is the source of the data made clear? (Remember that this project can be part of your public portfolios, so people not familiar with UMD may see it).
+  Datasets used in the project has been clearly shown in the README file, and the source of data also listed. Maybe you could add more word explanations about these organizations to your README file so that it could be more convenient for the viewers.
+
+9. Is the interpretation of figures clearly explained?
+  Currently interpretation of figures is still unavailable, but I notice your comment in the draft.R that you're still trying to find the best graph to convey the result.
+  Maybe you can make some explanations after you find the most suitable kind to figure for your project.
+
+10. Is the purpose and interpretation of analysis steps clearly communicated?
+  Yes. The purpose of each step is clearly shown in the draft.R file and the code is very tidy and readable.
+
+11. Are overall take-home messages clearly communicated?
+  Currently not but it doesn't matter too much I think since you're still working on the project and trying to make better visualization, you can put all these conclusions in the final HTML report.
+
+Anyway, thanks for all of your efforts on the project and wish you a successful presentation.
