@@ -81,17 +81,20 @@ mypoly <- subset(mydata, ZCTA5CE10 %in% raleigh.durham)
 mymap <- fortify(mypoly)
 plot(mypoly)
 
-main4 = main2 %>% select(ZC, ZCcounts) %>% unique()
+latlong = read_csv("https://gist.githubusercontent.com/erichurst/7882666/raw/5bdc46db47d9515269ab12ed6fb2850377fd869e/US%2520Zip%2520Codes%2520from%25202013%2520Government%2520Data")
+main4 = main2 %>% select(ZC, ZCcounts) %>% unique() %>%
+  left_join(latlong, by = c("ZC" = "ZIP"))
 mypoly.df <- as(mypoly, "data.frame") %>%
   left_join(main4, by = c("ZCTA5CE10" = "ZC"))
 
-centers <- data.frame(gCentroid(spgeom = mypoly, byid = TRUE))
-centers$zip <- rownames(centers)
 
-ggplot() +
-  geom_cartogram(data = mymap, aes(x = long, y = lat, map_id = id), map = mymap) +
-  geom_text_repel(data = centers, aes(label = zip, x = x, y = y), size = 3) +
-  scale_fill_gradientn(colours = rev(brewer.pal(10, "Spectral")))
+plot_map = ggplot() +
+  geom_cartogram(data = mymap, aes(x = long, y = lat, map_id = id), map = mymap, fill="white", color="black", size=.05) +
+  geom_text(data = mypoly.df, aes(label = ZCTA5CE10, x = LNG, y = LAT), size = 1.5, nudge_y = .005) +
+  geom_text(data = mypoly.df, aes(label = ZCcounts, x = LNG, y = LAT), size = 1.5, nudge_y = -.005, color = "red") +
+  theme_map() +
+  coord_map() +
+  ggtitle("Map of ZIP Codes Durham and Raleigh with Visits>=15 Labelled")
+plot_map
+ggsave("results/plot_map.png", width = 16/2, height = 9/2)            
 
-
-            
