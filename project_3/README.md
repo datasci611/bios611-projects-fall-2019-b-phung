@@ -18,5 +18,5 @@ The second part aims to plot this data out on a map of the Raleigh-Durham area.
   
 To recreate all the output from a UNC VCL `base_datasci611` environment, run the following commands:
 1. `git clone https://github.com/datasci611/bios611-projects-fall-2019-b-phung.git`
-2. `cd bios611-projects-fall-2019-b-phung/project_3/scripts`
+2. `cd bios611-projects-fall-2019-b-phung/project_3`
 3. `make`
