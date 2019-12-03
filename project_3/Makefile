@@ -4,7 +4,7 @@ build: Dockerfile
 pull-pandas:
 	docker pull amancevice/pandas:0.25.2-slim && touch $@
 
-create-csv:
-	docker run -d --rm -v "$(shell pwd)":"$(shell pwd)" -w "$(shell pwd)"
+zip.csv:
+	docker run -it --rm -v $(shell pwd):/workdir -w /workdir amancevice/pandas:0.25.2-slim \
 	python scripts/wrangle.py
 
