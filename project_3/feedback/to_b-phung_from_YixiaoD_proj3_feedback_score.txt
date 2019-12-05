@@ -1,0 +1,3 @@
+Feedback was specific: 5
+Feedback was “meta”: 4
+Feedback was respectful and optimistic: 1
